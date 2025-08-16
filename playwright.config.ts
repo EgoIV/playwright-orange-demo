@@ -24,26 +24,26 @@ export default defineConfig({
     trace: 'on-first-retry'
   },
 
-  // globalSetup: require.resolve('./global-setup'),
+  globalSetup: require.resolve('./global-setup'),
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'all test',
-      testMatch: /.*\.test\.ts/,
-      testIgnore: /.login\.test\.ts/,
+      testMatch: ['ui/tests/**/*.test.ts'],
+      testIgnore: ['ui/tests/login.test.ts'],
       use: { 
         storageState: 'storageState/adminStorage.json',
       },
     },
     {
       name: 'login test',
-      testMatch: /.login\.test\.ts/
+      testMatch: ['ui/tests/login.test.ts']
     },
     {
       name: 'all test firefox',
-      testMatch: /.*\.test\.ts/,
-      testIgnore: /.login\.test\.ts/,
+      testMatch: ['ui/tests/**/*.test.ts'],
+      testIgnore: ['ui/tests/login.test.ts'],
       use: { 
         storageState: 'storageState/adminStorage.json',
         ...devices['Desktop Firefox']
@@ -51,7 +51,7 @@ export default defineConfig({
     },
     {
       name: 'login test firefox',
-      testMatch: /.login\.test\.ts/,
+      testMatch: ['ui/tests/login.test.ts'],
       use: { ...devices['Desktop Firefox'] }
     },
     {
