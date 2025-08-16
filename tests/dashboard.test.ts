@@ -13,7 +13,7 @@ const dashBoardData = [
 ];
 
 for (const data of dashBoardData) {
-  test(`a fail in case: ${data.desc}`, async ({ page }) => {
+  test(`Search menu is case: ${data.desc}`, async ({ page }) => {
     const dashboardPage = new DashboardPage(page);
     await dashboardPage.goto();
     await dashboardPage.search(data.searchText);
@@ -22,7 +22,7 @@ for (const data of dashBoardData) {
   });
 }
 
-test('should show dashboard', async ({ page }) => {
+test('Dashboard page should be display', async ({ page }) => {
   const dashboardPage = new DashboardPage(page);
   await dashboardPage.goto();
   await dashboardPage.assertDashboardPageDisplay();

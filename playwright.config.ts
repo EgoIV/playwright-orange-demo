@@ -49,7 +49,21 @@ export default defineConfig({
     },
     {
       name: 'login test',
+      testMatch: /.login\.test\.ts/
+    },
+    {
+      name: 'all test firefox',
+      testMatch: /.*\.test\.ts/,
+      testIgnore: /.login\.test\.ts/,
+      use: { 
+        storageState: 'storageState/adminStorage.json',
+        ...devices['Desktop Firefox']
+      },
+    },
+    {
+      name: 'login test firefox',
       testMatch: /.login\.test\.ts/,
+      use: { ...devices['Desktop Firefox'] }
     },
 
     // {

@@ -28,8 +28,6 @@ export class DashboardPage {
 
   async assertMenuDisplayed(menu: string) {
     let visibleMenu = menu.split(',').filter(item => item.trim() !== '');
-    console.log(visibleMenu);
-    console.log(visibleMenu.length);
     for (const menu of visibleMenu) {
       await expect(this.page.getByRole('link', { name: menu })).toBeVisible();
     }
