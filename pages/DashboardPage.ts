@@ -5,6 +5,8 @@ export class DashboardPage {
   readonly dashboardHeading: Locator;
   readonly searchInput: Locator;
 
+  readonly menuArr = ['Admin', 'PIM', 'Leave', 'Time', 'Recruitment', 'My Info',
+    'Performance', 'Dashboard', 'Directory', 'Maintenance', 'Claim', 'Buzz'];
 
   constructor(page: Page) {
     this.page = page;
@@ -24,7 +26,22 @@ export class DashboardPage {
     await this.searchInput.fill(query);
   }
 
-  async assertMenuDisplayed(menuName: string) {
-    await expect(this.page.getByRole('link', { name: menuName })).toBeVisible();
+  async assertMenuDisplayed(menu: string) {
+    let visibleMenu = menu.split(',').filter(item => item.trim() !== '');
+    console.log(visibleMenu);
+    console.log(visibleMenu.length);
+    for (const menu of visibleMenu) {
+      await expect(this.page.getByRole('link', { name: menu })).toBeVisible();
+    }
+
+  }
+
+  async assertMenuNotDisplayed(menu: string) {
+    let visibleMenu = menu.split(',').filter(item => item.trim() !== '');
+    if (visibleMenu.length == 0) return;
+    const invisibleMenu = this.menuArr.filter(item => !visibleMenu.includes(item));
+    for (const menu of invisibleMenu) {
+      await expect(this.page.getByRole('link', { name: menu })).toBeHidden();
+    }
   }
 }

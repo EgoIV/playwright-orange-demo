@@ -1,16 +1,29 @@
-
 import { test } from '@playwright/test';
-// import { LoginPage } from '../pages/LoginPage';
 import { DashboardPage } from '../pages/DashboardPage';
 
-test.describe('Dashboard (Authenticated)', () => {
-  test('should show dashboard without logging in again', async ({ page }) => {
-    // const loginPage = new LoginPage(page);
+const dashBoardData = [
+  { searchText: 'Dashboard', menu: 'Dashboard', desc: 'full menu name' },
+  { searchText: 'Dash', menu: 'Dashboard', desc: 'partial menu name' },
+  { searchText: 'dashboard', menu: 'Dashboard', desc: 'lowercase text' },
+  { searchText: 'DASHBOARD', menu: 'Dashboard', desc: 'uppercase text' },
+  { searchText: ' Dashboard ', menu: '', desc: 'leading/trailing spaces' },
+  { searchText: 'ABC', menu: '', desc: 'unrelated keyword' },
+  { searchText: 'ai', menu: 'Maintenance,Claim', desc: 'multiple matching items' },
+  { searchText: '', menu: 'Admin,PIM,Leave,Time,Recruitment,My Info,Performance,Dashboard,Directory,Maintenance,Claim,Buzz', desc: 'empty search' }
+];
+
+for (const data of dashBoardData) {
+  test(`a fail in case: ${data.desc}`, async ({ page }) => {
     const dashboardPage = new DashboardPage(page);
-    // await loginPage.goto();
-    // await loginPage.login('Admin', 'admin123');
-    // await page.waitForURL('**/dashboard/index');
     await dashboardPage.goto();
-    await dashboardPage.assertDashboardPageDisplay();
+    await dashboardPage.search(data.searchText);
+    await dashboardPage.assertMenuDisplayed(data.menu);
+    await dashboardPage.assertMenuNotDisplayed(data.menu);
   });
+}
+
+test('should show dashboard', async ({ page }) => {
+  const dashboardPage = new DashboardPage(page);
+  await dashboardPage.goto();
+  await dashboardPage.assertDashboardPageDisplay();
 });
