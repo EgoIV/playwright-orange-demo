@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { DashboardPage } from '../pages/DashboardPage';
+import { DashboardPage } from '../pages/dashboardPage';
 
 const dashBoardData = [
   { searchText: 'Dashboard', menu: 'Dashboard', desc: 'full menu name' },
