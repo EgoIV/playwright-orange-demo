@@ -54,7 +54,6 @@ Automation framework for UI and API testing using Playwright & TypeScript
 ```  
 
 ## How to run <a name = "how"></a>
-1. Run all test
 ```bash
   npx playwright test
 ```
